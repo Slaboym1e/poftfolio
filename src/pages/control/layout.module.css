@@ -1,0 +1,28 @@
+.main__wrapper {
+    display: flex;
+    margin: 0 auto;
+    width: 80vw;
+    gap: 40px;
+}
+
+.navigation {
+    background-color: #D9D9D9;
+    border-radius: 8px;
+    padding: 0;
+    height: max-content;
+}
+
+.navigation__item {
+    padding: 15px 0;
+}
+
+.border {
+    border-bottom: 1px solid #C2C2C2;
+}
+
+.navigation__link {
+    margin: 0 60px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #363636;
+}

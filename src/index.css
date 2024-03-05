@@ -5,7 +5,7 @@
   --accordion-main_background: #EEEEEE;
   --radius_8: 8px;
   --radius_24: 24px;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -16,8 +16,18 @@ body {
   margin: 0;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .global__wrapper {
-  max-width: 1220px;
-  padding: 0 10px;
+  max-width: 80vw;
+  padding: 0 15px;
   margin: 0 auto;
+}
+
+h2 {
+  margin: 0;
 }
