@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import UsersService from "../../../services/users/users";
 import styles from './users.module.css';
+import ReactModal from "react-modal";
+import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
 
+
+ReactModal.setAppElement("#root");
 
 const statusTransform = (statusNum) =>{
     switch(statusNum){
@@ -18,6 +22,21 @@ const statusTransform = (statusNum) =>{
 
 const Users = () =>{
     const [users, setUsers] = useState(null);
+    const [isOpen, setOpen] = useState(false);
+    const [userModal, setUserModal] = useState(null);
+    const modalOpen = (user) => {
+        setUserModal(user);
+        setOpen(true);
+    }
+    const modalClose = () =>{
+        setUserModal(null);
+        setOpen(false);
+    }
+    const confirmHandle = () =>{
+        console.log("delete");
+        setOpen(false);
+    }
+    
 
     useEffect(()=>{
         const fetchData = async () =>{
@@ -27,20 +46,22 @@ const Users = () =>{
 
         fetchData();
     },[])
-    if(users === null){
-        return(
-            <div className={styles.page__background}>
-                <h1 className={styles.page__header}>Список пользователей</h1>
-                <div className={styles.page__body}>
-                    Загрузка...
+    const userMapper =() =>{
+        return users.map(user =>(
+                <div key={user.id} className={styles.users__item}>
+                <p>{user.username}</p>
+                <p>{user.email}</p>
+                <p>{statusTransform(user.status)}</p>
+                <img src="/edit.svg" alt="Изменение" width="24" height="24"/>
+                <img onClick={()=>modalOpen(user)} src="/delete.svg" alt="Удаление" width="24" height="24"/>
                 </div>
-            </div>
-        )
+            ))
     }
 
 
     return(
         <div className={styles.page__background}>
+        <CheckModal isOpen={isOpen} closeHandle={modalClose} submitHandle={confirmHandle} />
             <h1 className={styles.page__header}>Список пользователей</h1>
             <div className={styles.page__body}>
                 <div className={styles.users__item}>
@@ -50,15 +71,7 @@ const Users = () =>{
                 <p> </p>
                 <p> </p>
                 </div>
-            {users.map(user =>(
-                <div key={user.id} className={styles.users__item}>
-                <p>{user.username}</p>
-                <p>{user.email}</p>
-                <p>{statusTransform(user.status)}</p>
-                <img src="/edit.svg" alt="Изменение" width="24" height="24"/>
-                <img src="/delete.svg" alt="Удаление" width="24" height="24"/>
-                </div>
-            ))}
+            {users === null? <>Загрузка...</> : userMapper()}
             </div>
         </div>
     )
