@@ -1,0 +1,16 @@
+.item {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #C2C2C2;
+}
+
+.item>* {
+    width: 20%;
+}
+
+.item>img {
+    width: 48px;
+    cursor: pointer;
+}

@@ -1,80 +1,96 @@
 import { useEffect, useState } from "react";
 import UsersService from "../../../services/users/users";
-import styles from './users.module.css';
+import styles from "./users.module.css";
 import ReactModal from "react-modal";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
-
+import CreateUserModal from "../../../ui/modals/createuser/createuser";
+import PageHead from "../../../ui/control/pagehead/pagehead";
+import ListRow from "../../../ui/control/listrow/listrow";
+import ImgRow from "../../../ui/control/imgrow/imgrow";
 
 ReactModal.setAppElement("#root");
 
-const statusTransform = (statusNum) =>{
-    switch(statusNum){
-        case 1:
-            return "Активен";
-        case 2:
-            return "Заблокирован";
-        case 3:
-            return "Удален";
-        default:
-            return "Ошибка";
-    }
-}
+const statusTransform = (statusNum) => {
+  switch (statusNum) {
+    case 1:
+      return "Активен";
+    case 2:
+      return "Заблокирован";
+    case 3:
+      return "Удален";
+    default:
+      return "Ошибка";
+  }
+};
 
-const Users = () =>{
-    const [users, setUsers] = useState(null);
-    const [isOpen, setOpen] = useState(false);
-    const [userModal, setUserModal] = useState(null);
-    const modalOpen = (user) => {
-        setUserModal(user);
-        setOpen(true);
-    }
-    const modalClose = () =>{
-        setUserModal(null);
-        setOpen(false);
-    }
-    const confirmHandle = () =>{
-        console.log("delete");
-        setOpen(false);
-    }
-    
+const Users = () => {
+  const [users, setUsers] = useState(null);
+  const [isOpen, setOpen] = useState(false);
+  const [createIsOpen, createSetOpen] = useState(false);
+  const [userModal, setUserModal] = useState(null);
+  //Delete Modal
+  function modalOpen(user) {
+    setUserModal(user);
+    setOpen(true);
+  }
+  const confirmHandle = () => {
+    console.log(UsersService.removeById(userModal.id));
+    setUsers(users.filter((u) => u.id !== userModal.id));
+    setOpen(false);
+  };
+  //CreateUserModal
+  const createModalOpen = () => {
+    createSetOpen(true);
+  };
 
-    useEffect(()=>{
-        const fetchData = async () =>{
-            const data = await UsersService.getAll();
-            setUsers(data);
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await UsersService.getAll();
+      setUsers(data);
+    };
 
-        fetchData();
-    },[])
-    const userMapper =() =>{
-        return users.map(user =>(
-                <div key={user.id} className={styles.users__item}>
-                <p>{user.username}</p>
-                <p>{user.email}</p>
-                <p>{statusTransform(user.status)}</p>
-                <img src="/edit.svg" alt="Изменение" width="24" height="24"/>
-                <img onClick={()=>modalOpen(user)} src="/delete.svg" alt="Удаление" width="24" height="24"/>
-                </div>
-            ))
-    }
+    fetchData();
+  }, []);
+  const userMapper = () => {
+    return users.map((user) => (
+      <ListRow key={user.id}>
+        <p>{user.username}</p>
+        <p>{user.email}</p>
+        <p>{statusTransform(user.status)}</p>
+        <ImgRow controlObj={user} deleteFunc={modalOpen} />
+      </ListRow>
+    ));
+  };
 
-
-    return(
-        <div className={styles.page__background}>
-        <CheckModal isOpen={isOpen} closeHandle={modalClose} submitHandle={confirmHandle} />
-            <h1 className={styles.page__header}>Список пользователей</h1>
-            <div className={styles.page__body}>
-                <div className={styles.users__item}>
-                <p>Имя пользователя</p>
-                <p>Email</p>
-                <p>Статус</p>
-                <p> </p>
-                <p> </p>
-                </div>
-            {users === null? <>Загрузка...</> : userMapper()}
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="controlpage__background">
+      <CheckModal
+        isOpen={isOpen}
+        closeHandle={setOpen}
+        submitHandle={confirmHandle}
+      />
+      <CreateUserModal
+        isOpen={createIsOpen}
+        closeHandle={createSetOpen}
+        addUser={setUsers}
+        users={users}
+      />
+      <PageHead
+        headText="Список пользователей"
+        createHandle={createModalOpen}
+      />
+      <div className={styles.page__body}>
+        <ListRow>
+          <p>Имя пользователя</p>
+          <p>Email</p>
+          <p>Статус</p>
+          <p className="w_10"> </p>
+          <p className="w_10"> </p>
+        </ListRow>
+        {users === null ? <>Загрузка...</> : userMapper()}
+      </div>
+    </div>
+  );
+};
 
 export default Users;

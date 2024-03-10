@@ -26,3 +26,16 @@
     font-size: 18px;
     color: #363636;
 }
+
+@media (max-width: 864px) {
+    .main__wrapper {
+        width: calc(100% - 40px);
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .main__wrapper {
+        flex-direction: column;
+    }
+}

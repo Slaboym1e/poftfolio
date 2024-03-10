@@ -3,14 +3,20 @@
   --header-height: 56px;
   --accordion-header_background: #D9D9D9;
   --accordion-main_background: #EEEEEE;
-  --radius_8: 8px;
   --radius_24: 24px;
   font-family: Roboto, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
-
+html {
+  --primary_button-bg: #9b9b9b;
+  --primary_button-text: black;
+  --secondary_button-bg: #e8e4e4;
+  --secondary_button-text: black;
+  --radius_8: 8px;
+  --input_border: #9b9b9b;
+}
 
 body {
   margin: 0;
@@ -28,6 +34,24 @@ ul {
   margin: 0 auto;
 }
 
-h2 {
+
+h2, h1 {
   margin: 0;
+}
+
+.controlpage__background {
+  background-color: #EEEEEE;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.w_10 {
+  width: 48px;
+}
+
+.page__body {
+  padding: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
