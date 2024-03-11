@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import UsersService from "../../../services/users/users";
-import styles from "./users.module.css";
 import ReactModal from "react-modal";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
 import CreateUserModal from "../../../ui/modals/createuser/createuser";
@@ -79,7 +78,7 @@ const Users = () => {
         headText="Список пользователей"
         createHandle={createModalOpen}
       />
-      <div className={styles.page__body}>
+      <div className="page__body">
         <ListRow>
           <p>Имя пользователя</p>
           <p>Email</p>
