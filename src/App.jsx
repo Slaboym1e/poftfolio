@@ -3,6 +3,7 @@ import ControlLayout from "./pages/control/layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./ui/header/header";
 import Roles from "./pages/control/roles/rolespage";
+import Events from "./pages/control/events/page";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/login" element={<>Login</>}></Route>
         <Route path="/control" element={<ControlLayout />}>
           <Route path="users" element={<Users />} />
-          <Route path="events" element={<>events</>} />
+          <Route path="events" element={<Events />} />
           <Route path="groups" element={<Roles />} />
         </Route>
         <Route path="*" element={<>Ops</>} />

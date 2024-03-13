@@ -1,4 +1,5 @@
 .button_row {
+    justify-content: center;
     display: flex;
     gap: 12px;
 }

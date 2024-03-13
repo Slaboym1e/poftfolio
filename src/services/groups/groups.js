@@ -1,6 +1,6 @@
 import { Instance } from "../../lib/axios/axios.config";
 
-const UsersService = {
+const GroupsService = {
   async getAll() {
     const response = await Instance.get("/roles");
     return response.data;
@@ -22,4 +22,4 @@ const UsersService = {
   },
 };
 
-export default UsersService;
+export default GroupsService;

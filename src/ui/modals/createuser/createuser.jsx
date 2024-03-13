@@ -1,33 +1,15 @@
-import ReactModal from "react-modal";
 import PropTypes from "prop-types";
 import Button from "../../button/button";
 import mstyles from "./createmodal.module.css";
 import { useState } from "react";
 import UsersService from "../../../services/users/users";
+import BaseModal from "../basemodal";
 
 function CreateUserModal({ isOpen, closeHandle, addUser, users }) {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
-  const styles = {
-    overlay: {
-      backgroundColor: "rgba(187, 187, 187, 0.75)",
-    },
-    content: {
-      top: "40%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%,-50%)",
-      border: "none",
-      borderRadius: "8px",
-      padding: "40px 40px 25px 40px",
-      width: "450px",
-    },
-  };
-
   const submitHandle = async (ev) => {
     ev.preventDefault();
     const user = await UsersService.create(
@@ -41,8 +23,7 @@ function CreateUserModal({ isOpen, closeHandle, addUser, users }) {
   };
 
   return (
-    <ReactModal isOpen={isOpen} style={styles}>
-      <h2 className={mstyles.modalHead}>Создание пользователя</h2>
+    <BaseModal isOpen={isOpen} headText="Создание пользователя">
       <form method="post">
         <div className={mstyles.input_wrapper}>
           <input
@@ -91,7 +72,7 @@ function CreateUserModal({ isOpen, closeHandle, addUser, users }) {
           />
         </div>
       </form>
-    </ReactModal>
+    </BaseModal>
   );
 }
 
