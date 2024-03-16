@@ -1,23 +1,34 @@
+import { Link } from "react-router-dom";
 import Button from "../../button/button";
 import styles from "./pagehead.module.css";
 import PropTypes from "prop-types";
 
-const PageHead = ({ headText, createHandle }) => {
+const PageHead = ({ children, createHandle, backLink }) => {
   return (
     <div className={styles.page__header}>
-      <h1>{headText}</h1>
-      <Button
-        buttonType="secondary"
-        buttonText="Создать"
-        clickHande={createHandle}
-      />
+      {backLink !== undefined && (
+        <Link to={backLink} className={styles.arrow}>
+          <img src="/arrowleft.svg" />
+        </Link>
+      )}
+      <div className={styles.headblock}>
+        {children}
+        {createHandle !== undefined && (
+          <Button
+            buttonType="secondary"
+            buttonText="Создать"
+            clickHande={createHandle}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 PageHead.propTypes = {
+  children: PropTypes.any,
   createHandle: PropTypes.func,
-  headText: PropTypes.string,
+  backLink: PropTypes.string,
 };
 
 export default PageHead;

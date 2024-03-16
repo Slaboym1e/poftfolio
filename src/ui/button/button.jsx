@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import styles from "./button.module.css";
 import PropTypes from "prop-types";
 
-const Button = ({ buttonText, clickHande, buttonStyle }) => {
+const Button = ({ buttonText, clickHande, buttonStyle, disabled }) => {
   const buttonStyles = useMemo(
     () =>
       new Map([
@@ -13,6 +13,7 @@ const Button = ({ buttonText, clickHande, buttonStyle }) => {
   );
   return (
     <button
+      disabled={disabled}
       className={styles.button + " " + buttonStyles.get(buttonStyle)}
       onClick={clickHande}
     >
@@ -22,6 +23,7 @@ const Button = ({ buttonText, clickHande, buttonStyle }) => {
 };
 
 Button.propTypes = {
+  disabled: PropTypes.bool,
   buttonText: PropTypes.string,
   clickHande: PropTypes.func,
   buttonStyle: PropTypes.string,

@@ -6,11 +6,23 @@
     padding: 17px;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    white-space: nowrap;
+    gap: 15px;
+    /* justify-content: space-between;
+    white-space: nowrap; */
 
 }
 
+.arrow {
+    display: flex;
+    align-items: center;
+}
+
+.headblock {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    width: 100%;
+}
 
 @media (max-width: 980px) {
     .page__header>h1 {

@@ -5,6 +5,7 @@ export default function dateTranslator(date) {
 }
 
 export function dateRangeTranslator(firstDate, secondDate) {
-  if (firstDate === secondDate) return dateTranslator(firstDate);
+  if (firstDate === secondDate || (firstDate !== null && secondDate === null))
+    return dateTranslator(firstDate);
   return `${dateTranslator(firstDate)} - ${dateTranslator(secondDate)}`;
 }

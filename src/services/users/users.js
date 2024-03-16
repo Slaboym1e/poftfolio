@@ -6,7 +6,7 @@ const UsersService = {
     return response.data;
   },
   async getById(id) {
-    const response = await Instance.get(`/users/${id}`);
+    const response = await Instance.get(`/users/u-${id}`);
     return response.data;
   },
   async removeById(id) {
@@ -21,6 +21,14 @@ const UsersService = {
       repassword: repassword,
     });
     console.log(response.data);
+    return response.data;
+  },
+  async getRoles(id) {
+    const response = await Instance.get(`/users/u-${id}/roles`);
+    return response.data;
+  },
+  async getRights(id) {
+    const response = await Instance.get(`/users/u-${id}/rights`);
     return response.data;
   },
 };

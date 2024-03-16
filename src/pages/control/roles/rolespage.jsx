@@ -30,7 +30,9 @@ const Roles = () => {
 
   return (
     <div className="controlpage__background">
-      <PageHead headText="Список групп" />
+      <PageHead>
+        <h1>Список групп</h1>
+      </PageHead>
       <div className="page__body">
         {groups === null ? <>Загрузка...</> : groupsMapper()}
       </div>

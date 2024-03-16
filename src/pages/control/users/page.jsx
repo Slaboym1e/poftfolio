@@ -6,6 +6,7 @@ import CreateUserModal from "../../../ui/modals/createuser/createuser";
 import PageHead from "../../../ui/control/pagehead/pagehead";
 import ListRow from "../../../ui/control/listrow/listrow";
 import ImgRow from "../../../ui/control/imgrow/imgrow";
+import { useNavigate } from "react-router-dom";
 
 ReactModal.setAppElement("#root");
 
@@ -23,6 +24,7 @@ const statusTransform = (statusNum) => {
 };
 
 const Users = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const [createIsOpen, createSetOpen] = useState(false);
@@ -56,7 +58,11 @@ const Users = () => {
         <p>{user.username}</p>
         <p>{user.email}</p>
         <p>{statusTransform(user.status)}</p>
-        <ImgRow controlObj={user} deleteFunc={modalOpen} />
+        <ImgRow
+          controlObj={user}
+          deleteFunc={modalOpen}
+          editFunc={(control) => navigate(`/control/users/${control.id}`)}
+        />
       </ListRow>
     ));
   };
@@ -74,10 +80,9 @@ const Users = () => {
         addUser={setUsers}
         users={users}
       />
-      <PageHead
-        headText="Список пользователей"
-        createHandle={createModalOpen}
-      />
+      <PageHead createHandle={createModalOpen}>
+        <h1>Список пользователей</h1>
+      </PageHead>
       <div className="page__body">
         <ListRow>
           <p>Имя пользователя</p>

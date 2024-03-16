@@ -6,8 +6,10 @@ import PageHead from "../../../ui/control/pagehead/pagehead";
 import { dateRangeTranslator } from "../../../lib/translators/date.translator";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
 import CreateEventModal from "../../../ui/modals/createevent/createevent";
+import { useNavigate } from "react-router-dom";
 
 const Events = () => {
+  let navigate = useNavigate();
   const [events, setEvents] = useState(null);
   const [delIsOpen, setDelOpen] = useState(false);
   const [selEvent, setSelEvent] = useState(null);
@@ -35,7 +37,11 @@ const Events = () => {
       <ListRow key={event.id}>
         <p>{event.title}</p>
         <p>{dateRangeTranslator(event.start_date, event.end_date)}</p>
-        <ImgRow controlObj={event} deleteFunc={modalOpen} />
+        <ImgRow
+          controlObj={event}
+          deleteFunc={modalOpen}
+          editFunc={(control) => navigate(`/control/events/${control.id}`)}
+        />
       </ListRow>
     ));
   };
@@ -53,10 +59,9 @@ const Events = () => {
         closeHandle={setDelOpen}
         submitHandle={delEvent}
       />
-      <PageHead
-        headText="Список мероприятий"
-        createHandle={() => createSetOpen(true)}
-      />
+      <PageHead createHandle={() => createSetOpen(true)}>
+        <h1>Список мероприятий</h1>
+      </PageHead>
       <div className="page__body">
         {events === null ? <>Загрузка...</> : eventsMapper()}
       </div>
