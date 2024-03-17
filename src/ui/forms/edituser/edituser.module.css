@@ -1,0 +1,38 @@
+.user__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+
+
+}
+
+.border__right {
+    padding-right: 40px;
+    border-right: 1px solid var(--input_border);
+}
+
+.change__row {
+    display: inline-flex;
+    width: 100%;
+    gap: 15px;
+}
+
+.text__input {
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    /* background-color: ; */
+    border: 1px solid var(--input_border);
+    border-radius: var(--radius_8);
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1120px) {
+    .user__form {
+        max-width: 100%;
+    }
+}

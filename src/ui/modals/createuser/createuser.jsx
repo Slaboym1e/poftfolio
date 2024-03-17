@@ -19,7 +19,12 @@ function CreateUserModal({ isOpen, closeHandle, addUser, users }) {
       repassword
     );
     addUser([...users, user.user]);
-    console.log(user);
+    //console.log(user);
+    closeHandle();
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setRePassword("");
   };
 
   return (

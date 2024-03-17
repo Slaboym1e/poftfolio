@@ -19,6 +19,7 @@ function CreateEventModal({ isOpen, closeHandle, addEvent, events }) {
       endDate
     );
     addEvent([event, ...events]);
+    closeHandle();
     console.log("event");
   };
 

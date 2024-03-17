@@ -4,11 +4,13 @@ import UsersService from "../../../services/users/users";
 import PageHead from "../../../ui/control/pagehead/pagehead";
 import styles from "./user.module.css";
 import ListRow from "../../../ui/control/listrow/listrow";
-import Button from "../../../ui/button/button";
+import EditUserForm from "../../../ui/forms/edituser/edituser";
+import ChangePasswordForm from "../../../ui/forms/changepassword/changepassword";
 
 const User = () => {
   let { id } = useParams();
   const [user, setUser] = useState(null);
+
   const [roles, setRoles] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,7 @@ const User = () => {
 
     fetchData();
     fetchRoles();
-  }, []);
+  }, [id]);
   //console.log(user);
   const roleMapper = () => {
     return roles.map((role) => (
@@ -38,33 +40,26 @@ const User = () => {
       <PageHead backLink={"/control/users"}>
         <h1>Изменение пользователя</h1>
       </PageHead>
-      <div className="controlpage__background">
-        <PageHead>
-          <h2>Основная информация</h2>
-        </PageHead>
-        <div className="page__body">
-          {user !== null ? (
-            <>
-              <form className={styles.user__form}>
-                <input
-                  type="text"
-                  value={user.username}
-                  onChange={() => console.log("ok")}
-                />
-                <input
-                  type="email"
-                  value={user.email}
-                  onChange={() => console.log("ok")}
-                />
-                <Button
-                  buttonText="Изменить"
-                  clickHande={() => console.log("ok")}
-                />
-              </form>
-            </>
-          ) : (
-            <>Loading</>
-          )}
+      <div className={styles.forms__wrapper}>
+        <div className="controlpage__background">
+          <PageHead>
+            <h2>Основная информация</h2>
+          </PageHead>
+          <div className="page__body">
+            {user !== null ? (
+              <EditUserForm user={user} setUser={setUser} />
+            ) : (
+              <>Loading</>
+            )}
+          </div>
+        </div>
+        <div className="controlpage__background">
+          <PageHead>
+            <h2>Изменение пароля</h2>
+          </PageHead>
+          <div className="page__body">
+            {user !== null ? <ChangePasswordForm user={user} /> : <>Loading</>}
+          </div>
         </div>
       </div>
       <div className="controlpage__background">

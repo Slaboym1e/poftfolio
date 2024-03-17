@@ -1,5 +1,5 @@
 .header {
-    background-color: #D9D9D9;
+    background-color: var(--header_bg);
     border-radius: 8px;
     height: 71px;
     margin: 5px 5px 30px 5px;

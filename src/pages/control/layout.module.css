@@ -1,7 +1,7 @@
 .main__wrapper {
     display: flex;
     margin: 0 auto;
-    width: 80vw;
+    width: 60vw;
     gap: 40px;
 }
 
@@ -25,6 +25,12 @@
     text-decoration: none;
     font-size: 18px;
     color: #363636;
+}
+
+@media screen and (max-width: 1920px) {
+    .main__wrapper {
+        width: 80vw;
+    }
 }
 
 @media (max-width: 864px) {
