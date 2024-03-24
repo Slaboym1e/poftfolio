@@ -56,11 +56,13 @@ function CreateEventModal({ isOpen, closeHandle, addEvent, events }) {
             buttonStyle={"primary"}
             buttonText={"Создать"}
             clickHande={submitHandle}
+            buttonType="button"
           />
           <Button
             clickHande={() => closeHandle(false)}
             buttonStyle={"secondary"}
             buttonText={"Закрыть"}
+            buttonType="button"
           />
         </div>
       </form>

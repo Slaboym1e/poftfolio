@@ -7,6 +7,7 @@ import { dateRangeTranslator } from "../../../lib/translators/date.translator";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
 import CreateEventModal from "../../../ui/modals/createevent/createevent";
 import { useNavigate } from "react-router-dom";
+import usernameTranslator from "../../../lib/translators/username.translator";
 
 const Events = () => {
   let navigate = useNavigate();
@@ -37,6 +38,13 @@ const Events = () => {
       <ListRow key={event.id}>
         <p>{event.title}</p>
         <p>{dateRangeTranslator(event.start_date, event.end_date)}</p>
+        <p>
+          {usernameTranslator(
+            event.Author.name,
+            event.Author.soname,
+            event.Author.username
+          )}
+        </p>
         <ImgRow
           controlObj={event}
           deleteFunc={modalOpen}

@@ -5,6 +5,7 @@ import Header from "./ui/header/header";
 import Roles from "./pages/control/roles/rolespage";
 import Events from "./pages/control/events/page";
 import User from "./pages/control/user/page";
+import LoginPage from "./pages/login/page";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<>Home</>}></Route>
-        <Route path="/login" element={<>Login</>}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/control" element={<ControlLayout />}>
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<User />} />

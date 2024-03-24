@@ -1,7 +1,11 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import styles from "./layout.module.css";
+import { useContext } from "react";
+import { AuthContext } from "../../lib/providers/authprovider";
 
 const ControlLayout = () => {
+  const { user } = useContext(AuthContext);
+  if (user === null) return <Navigate to="/login" />;
   return (
     <main className={styles.main__wrapper}>
       <aside className={styles.navigation}>

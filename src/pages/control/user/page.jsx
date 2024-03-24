@@ -6,27 +6,29 @@ import styles from "./user.module.css";
 import ListRow from "../../../ui/control/listrow/listrow";
 import EditUserForm from "../../../ui/forms/edituser/edituser";
 import ChangePasswordForm from "../../../ui/forms/changepassword/changepassword";
+import UserAchievements from "../../../ui/control/userachievements/userachievements";
 
 const User = () => {
   let { id } = useParams();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
+  const [roles, setRoles] = useState([]);
 
-  const [roles, setRoles] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       const data = await UsersService.getById(id);
       setUser(data);
     };
+
+    fetchData();
+  }, [id]);
+  useEffect(() => {
     const fetchRoles = async () => {
       const data = await UsersService.getRoles(id);
       setRoles(data);
       console.log(roles);
     };
-
-    fetchData();
     fetchRoles();
   }, [id]);
-  //console.log(user);
   const roleMapper = () => {
     return roles.map((role) => (
       <ListRow key={role.Role.id}>
@@ -70,6 +72,7 @@ const User = () => {
           {roles === null ? <>Загрузка...</> : roleMapper()}
         </div>
       </div>
+      <UserAchievements id={id} />
     </div>
   );
 };

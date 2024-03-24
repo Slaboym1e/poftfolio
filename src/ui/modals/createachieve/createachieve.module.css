@@ -1,0 +1,24 @@
+.button_row {
+    justify-content: center;
+    display: flex;
+    gap: 12px;
+}
+
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input {
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    border-radius: var(--radius_8);
+    border: 1px solid var(--input_border);
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+}
