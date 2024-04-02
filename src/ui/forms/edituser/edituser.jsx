@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../button/button";
 import styles from "./edituser.module.css";
 import PropTypes from "prop-types";
@@ -6,11 +6,29 @@ import UsersService from "../../../services/users/users";
 
 function EditUserForm({ user, setUser }) {
   const [formuser, setFormUser] = useState({
-    username: user.username,
-    email: user.email,
-    name: user.name === null ? "" : user.name,
-    soname: user.soname === null ? "" : user.soname,
+    username: "",
+    email: "",
+    name: "",
+    soname: "",
   });
+
+  useEffect(() => {
+    const dataSet = () => {
+      setFormUser({
+        username:
+          user.username === undefined || user.username === null
+            ? ""
+            : user.username,
+        email:
+          user.email === undefined || user.email === null ? "" : user.email,
+        name: user.name === null || user.name === undefined ? "" : user.name,
+        soname:
+          user.soname === null || user.soname === undefined ? "" : user.soname,
+      });
+    };
+    dataSet();
+  }, [user]);
+
   const resetForm = (ev) => {
     ev.preventDefault();
     setFormUser({
@@ -32,7 +50,6 @@ function EditUserForm({ user, setUser }) {
     );
     console.log(response);
     setUser({
-      ...user,
       username: formuser.username,
       email: formuser.email,
       name: formuser.name,

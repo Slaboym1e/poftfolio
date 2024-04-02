@@ -1,0 +1,12 @@
+.button_row {
+    justify-content: center;
+    display: flex;
+    gap: 12px;
+}
+
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}

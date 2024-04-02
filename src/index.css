@@ -12,6 +12,10 @@ html {
   --secondary_button-text: black;
   --radius_8: 8px;
   --input_border: #9b9b9b;
+
+  --warning-color: #DDD37C;
+  --link-color: #576AD1;
+  --link-hover: #4253AE;
 }
 
 body {
@@ -30,17 +34,32 @@ ul {
   margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
 
 h2, h1, h3 {
   margin: 0;
+  align-self: center;
 }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text], input[type=email], input[type=password], textarea {
   padding: 5px 10px 5px 10px;
   font-size: 16px;
   /* background-color: ; */
   border: 1px solid var(--input_border);
   border-radius: var(--radius_8);
+}
+
+textarea {
+  resize: none;
+  box-sizing: content-box;
+  min-height: 90px;
 }
 
 .label {
@@ -63,4 +82,11 @@ input[type=text], input[type=email], input[type=password] {
   display: flex;
   flex-direction: column;
   /*align-items: center;*/
+}
+
+.page__compose {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
 }

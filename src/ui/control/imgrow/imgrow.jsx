@@ -1,35 +1,46 @@
+import { memo } from "react";
 import styles from "./imgrow.module.css";
 import PropTypes from "prop-types";
 
-const ImgRow = ({ controlObj, editFunc, deleteFunc }) => {
+const ImgRows = ({
+  controlObj,
+  editFunc,
+  deleteFunc,
+  firstImage,
+  secondImage,
+}) => {
   return (
     <div className={styles.group}>
       <img
         onClick={() => editFunc(controlObj)}
         className={styles.item}
-        src="/edit.svg"
-        alt="Изменение"
+        src={firstImage.src}
+        alt={firstImage.alt}
         width="24"
         height="24"
-        title="Подробнее/Изменить"
+        title={firstImage.alt}
       />
       <img
         className={styles.item}
         onClick={() => deleteFunc(controlObj)}
-        src="/delete.svg"
-        alt="Удаление"
+        src={secondImage.src}
+        alt={secondImage.alt}
         width="24"
         height="24"
-        title="Удалить"
+        title={secondImage.alt}
       />
     </div>
   );
 };
 
-ImgRow.propTypes = {
+ImgRows.propTypes = {
   controlObj: PropTypes.object,
   deleteFunc: PropTypes.func,
   editFunc: PropTypes.func,
+  firstImage: PropTypes.object,
+  secondImage: PropTypes.object,
 };
+
+const ImgRow = memo(ImgRows);
 
 export default ImgRow;

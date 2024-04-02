@@ -23,6 +23,8 @@ const Roles = () => {
         <ImgRow
           controlObj={group}
           deleteFunc={(group) => console.log(group.name)}
+          firstImage={{ src: "/edit.svg", alt: "Изменить/Подробнее" }}
+          secondImage={{ src: "/delete.svg", alt: "Удалить" }}
         />
       </ListRow>
     ));

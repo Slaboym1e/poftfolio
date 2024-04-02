@@ -62,6 +62,8 @@ const Users = () => {
           controlObj={user}
           deleteFunc={modalOpen}
           editFunc={(control) => navigate(`/control/users/${control.id}`)}
+          firstImage={{ src: "/edit.svg", alt: "Изменить/Подробнее" }}
+          secondImage={{ src: "/delete.svg", alt: "Удалить" }}
         />
       </ListRow>
     ));

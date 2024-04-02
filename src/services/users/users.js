@@ -50,19 +50,26 @@ const UsersService = {
   },
   async login(email, password) {
     try {
-      const { data } = await Instance.post(`/users/signin`, {
+      const response = await Instance.post(`/users/signin`, {
         email: email,
         password: password,
       });
-      return data;
+      console.log(response);
+      return response.data;
     } catch (err) {
       console.log(err);
       return false;
     }
   },
   async logout() {
-    const { status } = await Instance.post("/users/logout");
-    return status;
+    return Instance.post("/users/logout")
+      .then(function (data) {
+        console.log(data);
+        return;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   },
 };
 

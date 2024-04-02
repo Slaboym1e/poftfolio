@@ -11,7 +11,7 @@ import UserAchievements from "../../../ui/control/userachievements/userachieveme
 const User = () => {
   let { id } = useParams();
   const [user, setUser] = useState({});
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +28,7 @@ const User = () => {
       console.log(roles);
     };
     fetchRoles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   const roleMapper = () => {
     return roles.map((role) => (

@@ -18,8 +18,9 @@ const UserAchievements = ({ id }) => {
 
   const achieveMapper = () => {
     return achievements.map((achieve) => (
-      <ListRow key={achieve.id}>
+      <ListRow key={achieve.id} isWarning={!achieve.approve}>
         <p>{achieve.title}</p>
+        <img src="/delete.svg" width="24px" height="24px" />
       </ListRow>
     ));
   };

@@ -34,8 +34,9 @@ const Events = () => {
   }, []);
 
   const eventsMapper = () => {
-    return events.map((event) => (
+    return [...events].reverse().map((event) => (
       <ListRow key={event.id}>
+        <p>{event.id}</p>
         <p>{event.title}</p>
         <p>{dateRangeTranslator(event.start_date, event.end_date)}</p>
         <p>
@@ -49,6 +50,8 @@ const Events = () => {
           controlObj={event}
           deleteFunc={modalOpen}
           editFunc={(control) => navigate(`/control/events/${control.id}`)}
+          firstImage={{ src: "/edit.svg", alt: "Изменить/Подробнее" }}
+          secondImage={{ src: "/delete.svg", alt: "Удалить" }}
         />
       </ListRow>
     ));

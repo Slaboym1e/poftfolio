@@ -6,21 +6,29 @@ import Roles from "./pages/control/roles/rolespage";
 import Events from "./pages/control/events/page";
 import User from "./pages/control/user/page";
 import LoginPage from "./pages/login/page";
+import Event from "./pages/control/event/event.page";
+import WorkGroups from "./pages/control/workgroups/page";
+import WorkGroup from "./pages/control/workgroup/page";
+import HomePage from "./pages/home/page";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<>Home</>}></Route>
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/control" element={<ControlLayout />}>
+          <Route path="" element={<>Control Panel</>} />
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<User />} />
           <Route path="events" element={<Events />} />
-          <Route path="events/:id" element={<>E1</>} />
+          <Route path="events/:id" element={<Event />} />
           <Route path="groups" element={<Roles />} />
+          <Route path="workgroups" element={<WorkGroups />} />
+          <Route path="workgroups/:id" element={<WorkGroup />} />
         </Route>
+        <Route path="portfolio/:id" element={<>Port</>} />
         <Route path="*" element={<>Ops</>} />
       </Routes>
     </BrowserRouter>

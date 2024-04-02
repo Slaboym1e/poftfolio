@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Instance = axios.create({
-  withCredentials: false,
+  withCredentials: true,
   baseURL: "http://127.0.0.1:5001",
 });
 
@@ -23,6 +23,11 @@ Instance.interceptors.response.use(
   // в случае просроченного accessToken пытаемся его обновить:
   async (error) => {
     // предотвращаем зацикленный запрос, добавляя свойство _isRetry
+    console.log(error);
+    // const originalRequest = { ...error.config };
+    // originalRequest._isRetry = true;
+    //}
+    //if (!error.config._isRetry) {
     const originalRequest = { ...error.config };
     originalRequest._isRetry = true;
     console.log(error.config.url);
@@ -36,15 +41,27 @@ Instance.interceptors.response.use(
     ) {
       try {
         // запрос на обновление токенов
-        const resp = await Instance.get("/users/refresh");
-        // сохраняем новый accessToken в localStorage
-        localStorage.setItem("token", resp.data.access_token);
-        // переотправляем запрос с обновленным accessToken
+        const resp = await fetch("http://localhost:5001/users/refresh", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("refresh"),
+          },
+        });
+        if (resp.status == 401) {
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
+        const data = await resp.json();
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("refresh", data.refresh);
+        //     // переотправляем запрос с обновленным accessToken
         return Instance.request(originalRequest);
       } catch (error) {
         console.log("AUTH ERROR");
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        //window.location.replace("/login");
         window.location.reload();
       }
     }
