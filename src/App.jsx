@@ -10,6 +10,7 @@ import Event from "./pages/control/event/event.page";
 import WorkGroups from "./pages/control/workgroups/page";
 import WorkGroup from "./pages/control/workgroup/page";
 import HomePage from "./pages/home/page";
+import PortfolioPage from "./pages/portfolio/page";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           <Route path="workgroups" element={<WorkGroups />} />
           <Route path="workgroups/:id" element={<WorkGroup />} />
         </Route>
-        <Route path="portfolio/:id" element={<>Port</>} />
+        <Route path="portfolio/:id" element={<PortfolioPage />} />
         <Route path="*" element={<>Ops</>} />
       </Routes>
     </BrowserRouter>

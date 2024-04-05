@@ -10,6 +10,7 @@ function EditUserForm({ user, setUser }) {
     email: "",
     name: "",
     soname: "",
+    about: "",
   });
 
   useEffect(() => {
@@ -24,6 +25,8 @@ function EditUserForm({ user, setUser }) {
         name: user.name === null || user.name === undefined ? "" : user.name,
         soname:
           user.soname === null || user.soname === undefined ? "" : user.soname,
+        about:
+          user.about === null || user.about === undefined ? "" : user.about,
       });
     };
     dataSet();
@@ -36,6 +39,7 @@ function EditUserForm({ user, setUser }) {
       email: user.email,
       name: user.name === null ? "" : user.name,
       soname: user.soname === null ? "" : user.soname,
+      about: user.about === null ? "" : user.about,
     });
   };
 
@@ -46,7 +50,8 @@ function EditUserForm({ user, setUser }) {
       formuser.username.replaceAll(" ", ""),
       formuser.email.replaceAll(" ", ""),
       formuser.name,
-      formuser.soname
+      formuser.soname,
+      formuser.about
     );
     console.log(response);
     setUser({
@@ -54,6 +59,7 @@ function EditUserForm({ user, setUser }) {
       email: formuser.email,
       name: formuser.name,
       soname: formuser.soname,
+      about: formuser.about,
     });
   };
   return (
@@ -94,6 +100,14 @@ function EditUserForm({ user, setUser }) {
           type="text"
           value={formuser.name}
           onChange={(e) => setFormUser({ ...formuser, name: e.target.value })}
+        />
+      </label>
+      <label className={styles.label}>
+        Описание
+        <textarea
+          className={styles.text__input}
+          value={formuser.about}
+          onChange={(e) => setFormUser({ ...formuser, about: e.target.value })}
         />
       </label>
       <div className={styles.change__row}>

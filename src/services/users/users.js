@@ -37,12 +37,13 @@ const UsersService = {
     });
     return response.data.update;
   },
-  async update(id, username, email, name, soname) {
+  async update(id, username, email, name, soname, about) {
     let body = {};
     if (typeof username !== "undefined") body.username = username;
     if (typeof email !== "undefined") body.email = email;
     if (typeof name !== "undefined") body.name = name;
     if (typeof soname !== "undefined") body.soname = soname;
+    if (typeof about !== "undefined") body.about = about;
     if (body == {}) return false;
 
     const response = await Instance.put(`/users/u-${id}`, body);
@@ -70,6 +71,15 @@ const UsersService = {
       .catch(function (error) {
         console.log(error);
       });
+  },
+  async getPortfolio(id) {
+    try {
+      const response = await Instance.get(`/users/u-${id}/portfolio`);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   },
 };
 
