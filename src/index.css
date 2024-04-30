@@ -12,13 +12,14 @@ html {
   --secondary_button-text: black;
   --radius_8: 8px;
   --input_border: #9b9b9b;
-
+  --border_color: #C2C2C2;
   --warning-color: #DDD37C;
   --link-color: #576AD1;
   --link-hover: #4253AE;
+  --tablehead_color: #3d3d3d;
 }
 
-body {
+body, p {
   margin: 0;
 }
 
@@ -65,6 +66,13 @@ textarea {
 .label {
   display: flex;
   flex-direction: column;
+}
+
+.input {
+  padding: 5px 10px 5px 10px;
+  font-size: 16px;
+  border-radius: var(--radius_8);
+  border: 1px solid var(--input_border);
 }
 
 .controlpage__background {

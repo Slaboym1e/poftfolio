@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import PageHead from "../pagehead/pagehead";
 import AchieventService from "../../../services/achievemnts/achievements";
-import ListRow from "../listrow/listrow";
 import CreateAchieveModal from "../../modals/createachieve/createachieve";
+import UserAchievementsTable from "../../tables/userachiements";
 
 const UserAchievements = ({ id }) => {
   const [achievements, setAchievements] = useState(null);
@@ -15,15 +15,6 @@ const UserAchievements = ({ id }) => {
     };
     if (id !== null && typeof id !== "undefined") getAchievements();
   }, [id]);
-
-  const achieveMapper = () => {
-    return achievements.map((achieve) => (
-      <ListRow key={achieve.id} isWarning={!achieve.approve}>
-        <p>{achieve.title}</p>
-        <img src="/delete.svg" width="24px" height="24px" />
-      </ListRow>
-    ));
-  };
 
   return (
     <>
@@ -39,7 +30,7 @@ const UserAchievements = ({ id }) => {
           <h2>Достижения</h2>
         </PageHead>
         <div className="page__body">
-          {achievements !== null ? achieveMapper() : <>Loading</>}
+          <UserAchievementsTable achievements={achievements} />
         </div>
       </div>
     </>

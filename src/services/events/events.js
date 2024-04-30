@@ -53,6 +53,18 @@ const EventsService = {
   async ApproveAchievement(eventId, AchieveId) {
     if (eventId === undefined || AchieveId === undefined) return false;
   },
+  async search(searchString) {
+    if (searchString === "" || searchString === undefined) return null;
+    try {
+      const response = await Instance.get("/events/search", {
+        params: { q: searchString },
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
 };
 
 export default EventsService;

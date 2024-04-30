@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import EventsService from "../../../services/events/events";
-import ListRow from "../../../ui/control/listrow/listrow";
-import ImgRow from "../../../ui/control/imgrow/imgrow";
 import PageHead from "../../../ui/control/pagehead/pagehead";
-import { dateRangeTranslator } from "../../../lib/translators/date.translator";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
 import CreateEventModal from "../../../ui/modals/createevent/createevent";
 import { useNavigate } from "react-router-dom";
-import usernameTranslator from "../../../lib/translators/username.translator";
+
+import EventsTable from "../../../ui/tables/eventstable";
 
 const Events = () => {
   let navigate = useNavigate();
@@ -32,31 +30,6 @@ const Events = () => {
 
     fetchData();
   }, []);
-
-  const eventsMapper = () => {
-    return [...events].reverse().map((event) => (
-      <ListRow key={event.id}>
-        <p>{event.id}</p>
-        <p>{event.title}</p>
-        <p>{dateRangeTranslator(event.start_date, event.end_date)}</p>
-        <p>
-          {usernameTranslator(
-            event.Author.name,
-            event.Author.soname,
-            event.Author.username
-          )}
-        </p>
-        <ImgRow
-          controlObj={event}
-          deleteFunc={modalOpen}
-          editFunc={(control) => navigate(`/control/events/${control.id}`)}
-          firstImage={{ src: "/edit.svg", alt: "Изменить/Подробнее" }}
-          secondImage={{ src: "/delete.svg", alt: "Удалить" }}
-        />
-      </ListRow>
-    ));
-  };
-
   return (
     <div className="controlpage__background">
       <CreateEventModal
@@ -74,7 +47,15 @@ const Events = () => {
         <h1>Список мероприятий</h1>
       </PageHead>
       <div className="page__body">
-        {events === null ? <>Загрузка...</> : eventsMapper()}
+        <EventsTable
+          events={events}
+          delFunc={modalOpen}
+          editFunc={(control) =>
+            navigate(`/control/events/${control.id}`, {
+              state: { prev: "/control/events" },
+            })
+          }
+        />
       </div>
     </div>
   );

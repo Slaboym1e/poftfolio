@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import PageHead from "../../../ui/control/pagehead/pagehead";
-import ListRow from "../../../ui/control/listrow/listrow";
 import WorkGroupService from "../../../services/workgroups/workgroups";
 import CreateWGModal from "../../../ui/modals/createworkgroup/createworkgroup";
-import ImgRow from "../../../ui/control/imgrow/imgrow";
 import { useNavigate } from "react-router-dom";
 import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
+import WorkgroupsTable from "../../../ui/tables/workgroupstable";
 
 const WorkGroups = () => {
   let navigate = useNavigate();
@@ -28,22 +27,6 @@ const WorkGroups = () => {
     setWGroups(wgroups.filter((u) => u.id !== selWG.id));
     setDelOpen(false);
   }
-
-  const WGMapper = () => {
-    return [...wgroups].reverse().map((elem) => (
-      <ListRow key={elem.id}>
-        <p>{elem.id}</p>
-        <p>{elem.title}</p>
-        <ImgRow
-          controlObj={elem}
-          deleteFunc={modalOpen}
-          editFunc={(control) => navigate(`/control/workgroups/${control.id}`)}
-          firstImage={{ src: "/edit.svg", alt: "Изменить/Подробнее" }}
-          secondImage={{ src: "/delete.svg", alt: "Удалить" }}
-        />
-      </ListRow>
-    ));
-  };
   return (
     <div className="controlpage__background">
       <CreateWGModal
@@ -61,7 +44,15 @@ const WorkGroups = () => {
         <h1>Список классов</h1>
       </PageHead>
       <div className="page__body">
-        {wgroups === null ? <>Loading</> : WGMapper()}
+        <WorkgroupsTable
+          workgroups={wgroups}
+          editFunc={(control) =>
+            navigate(`/control/workgroups/${control.id}`, {
+              state: { prev: "/control/workgroups" },
+            })
+          }
+          delFunc={modalOpen}
+        />
       </div>
     </div>
   );
