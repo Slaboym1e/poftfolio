@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import PageHead from "../pagehead/pagehead";
 import PropTypes from "prop-types";
 import WorkGroupService from "../../../services/workgroups/workgroups";
-import ListRow from "../listrow/listrow";
-import AddWGUsersModal from "../../modals/addwgusers/addwgusers";
+import AddWGUsersModal from "../../modals/addwgusers";
+import WorkgroupUsersTable from "../../tables/workgroupusers";
+import CheckModal from "../../modals/checkmodal";
 
-const WGUsers = ({ id }) => {
+const WGUsers = ({ id, enableEdit }) => {
   const [users, setUsers] = useState(null);
   const [createIsOpen, setCreateIsOpen] = useState(false);
+  const [dleteIsOpen, setDelIsOpen] = useState(false);
+  const [selUser, setSelUser] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,29 +19,45 @@ const WGUsers = ({ id }) => {
     getData();
   }, [id]);
 
-  const usersMapper = () => {
-    return users.map((elem) => (
-      <ListRow key={elem.id}>
-        <p>
-          {elem.soname} {elem.name}
-        </p>
-      </ListRow>
-    ));
+  const delOpen = (user) => {
+    setSelUser(user);
+    setDelIsOpen(true);
   };
+  const delHandle = async () => {
+    const data = await WorkGroupService.updateUsersToWG(id, selUser.id, false);
+    if (data) setUsers(users.filter((u) => u.id !== selUser.id));
+    setDelIsOpen(false);
+  };
+
   return (
     <div className="controlpage__background">
+      <CheckModal
+        isOpen={dleteIsOpen}
+        closeHandle={setDelIsOpen}
+        submitHandle={delHandle}
+      />
+
       <AddWGUsersModal
         isOpen={createIsOpen}
         closeHandle={setCreateIsOpen}
-        users={users}
-        addUsers={setUsers}
-        classId={id}
+        wgUsers={users}
+        setWgUsers={setUsers}
+        workgroupId={id}
       />
-      <PageHead createHandle={() => setCreateIsOpen(true)}>
+      <PageHead
+        createHandle={enableEdit ? () => setCreateIsOpen(true) : undefined}
+      >
         <h2>Ученики</h2>
       </PageHead>
       <div className="page__body">
-        {users !== null ? usersMapper() : <>Загрузка...</>}
+        {users !== null ? (
+          <WorkgroupUsersTable
+            wgusers={users}
+            delFunc={enableEdit ? delOpen : undefined}
+          />
+        ) : (
+          <>Загрузка...</>
+        )}
       </div>
     </div>
   );
@@ -46,6 +65,7 @@ const WGUsers = ({ id }) => {
 
 WGUsers.propTypes = {
   id: PropTypes.string,
+  enableEdit: PropTypes.bool,
 };
 
 export default WGUsers;

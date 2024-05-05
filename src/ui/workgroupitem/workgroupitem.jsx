@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const WorkGroupItem = ({ workgroup }) => {
   const [users, setUsers] = useState(null);
-
   useEffect(() => {
     const getData = async () => {
       setUsers(await WorkGroupService.getUsersListByWGId(workgroup.id));
@@ -18,7 +17,7 @@ const WorkGroupItem = ({ workgroup }) => {
   const usersWrapper = () => {
     return [...users].map((elem) => (
       <ListRow key={elem.id}>
-        <Link to={`/portfolio/${elem.id}`}>
+        <Link to={`/portfolio/${elem.id}`} state={{ prev: location.pathname }}>
           {elem.soname} {elem.name}
         </Link>
       </ListRow>

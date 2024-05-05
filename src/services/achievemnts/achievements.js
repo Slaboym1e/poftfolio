@@ -18,6 +18,23 @@ const AchieventService = {
     const response = await Instance.get(`/users/u-${id}/achievements`);
     return response.data;
   },
+  async removeById(userId, achievementId) {
+    if (
+      achievementId === undefined ||
+      achievementId < 1 ||
+      userId === undefined ||
+      userId < 1
+    )
+      return { remove: false };
+    try {
+      const response = await Instance.put(`/users/u-${userId}/achievements`, {
+        achievementId: achievementId,
+      });
+      return response.data;
+    } catch (err) {
+      return { remove: false };
+    }
+  },
 };
 
 export default AchieventService;

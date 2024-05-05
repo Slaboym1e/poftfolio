@@ -20,7 +20,13 @@ const LoginPage = () => {
       formData.email,
       formData.password
     );
-    if (response) login(response.user, response.access_token, response.refresh);
+    if (response)
+      login(
+        response.user,
+        response.access_token,
+        response.refresh,
+        response.permissions
+      );
     else {
       setFormData({ ...formData, error: "Ошибка во время входа" });
     }

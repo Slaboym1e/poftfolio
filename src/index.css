@@ -5,18 +5,31 @@
 }
 
 html {
-  --header_bg: #D9D9D9;
-  --primary_button-bg: #9b9b9b;
-  --primary_button-text: black;
-  --secondary_button-bg: #e8e4e4;
-  --secondary_button-text: black;
+
   --radius_8: 8px;
   --input_border: #9b9b9b;
   --border_color: #C2C2C2;
   --warning-color: #DDD37C;
-  --link-color: #576AD1;
-  --link-hover: #4253AE;
   --tablehead_color: #3d3d3d;
+  --error: #a11b1b;
+  /* Header */
+  --header-background: #455298;
+  --header-link: #cecdcd;
+  --header-link_hover: #8b8b8b;
+  /* Button */
+  --primary_button-bg: #2b3a90;
+  --primary_button-text: #dcdcdc;
+  --secondary_button-bg: #6b77bd;
+  --secondary_button-text: #dcdcdc;
+  /* Control */
+  --menu-active: #7a84c1;
+  --menu-color: #dcdcdc;
+  --menu-hover: #C2C2C2;
+  /* Text */
+  --dark-color: #323232;
+  /* Link */
+  --link-color: #323232;
+  --link-hover: #4253AE;
 }
 
 body, p {
@@ -47,6 +60,7 @@ a:hover {
 h2, h1, h3 {
   margin: 0;
   align-self: center;
+  color: var(--dark-color);
 }
 
 input[type=text], input[type=email], input[type=password], textarea {
@@ -75,10 +89,15 @@ textarea {
   border: 1px solid var(--input_border);
 }
 
+.input_error {
+  border: 1px solid var(--error);
+}
+
 .controlpage__background {
   background-color: #EEEEEE;
   border-radius: 8px;
   flex: 1;
+  height: min-content;
 }
 
 .w_10 {
@@ -97,4 +116,20 @@ textarea {
   flex-direction: column;
   width: 100%;
   gap: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.button__row {
+  display: inline-flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.button__row>* {
+  flex: 1;
 }

@@ -41,13 +41,14 @@ const WorkGroupService = {
       return null;
     }
   },
-  async addUserToWG(id, userIds) {
+  async updateUsersToWG(id, userIds, create = true) {
     if (id === undefined || id < 1) return null;
     if ((Array.isArray(userIds) && userIds.length === 0) || userIds === null)
       return null;
     try {
       const { data } = await Instance.post(`/workgroups/wg-${id}/users`, {
         userIds: userIds,
+        create: create,
       });
       return data;
     } catch ({ name, message }) {

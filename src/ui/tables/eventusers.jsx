@@ -15,10 +15,11 @@ const EventUsersTable = ({ achievemnts, delFunc, editFunc }) => {
             <img src="/delete.svg" />
           ) : (
             <ImgRow
-              firstImage={{ src: "/done.svg", alt: "Подтвердить" }}
-              editFunc={editFunc}
-              secondImage={{ src: "/close.svg", alt: "Удалить" }}
+              controlObj={el}
               deleteFunc={delFunc}
+              editFunc={editFunc}
+              firstImage={{ src: "/done.svg", alt: "Подтвердить" }}
+              secondImage={{ src: "/delete.svg", alt: "Удалить" }}
             />
           )}
         </div>

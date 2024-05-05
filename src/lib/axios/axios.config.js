@@ -23,14 +23,12 @@ Instance.interceptors.response.use(
   // в случае просроченного accessToken пытаемся его обновить:
   async (error) => {
     // предотвращаем зацикленный запрос, добавляя свойство _isRetry
-    console.log(error);
     // const originalRequest = { ...error.config };
     // originalRequest._isRetry = true;
     //}
     //if (!error.config._isRetry) {
     const originalRequest = { ...error.config };
     originalRequest._isRetry = true;
-    console.log(error.config.url);
     if (
       // проверим, что ошибка именно из-за невалидного accessToken
       error.response.status === 401 &&
@@ -58,7 +56,6 @@ Instance.interceptors.response.use(
         //     // переотправляем запрос с обновленным accessToken
         return Instance.request(originalRequest);
       } catch (error) {
-        console.log("AUTH ERROR");
         localStorage.removeItem("user");
         localStorage.removeItem("token");
         //window.location.replace("/login");

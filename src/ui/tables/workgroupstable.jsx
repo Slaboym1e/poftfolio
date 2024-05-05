@@ -6,7 +6,6 @@ const WorkgroupsTable = ({ workgroups, editFunc, delFunc }) => {
   const rowMapper = () => {
     return workgroups.map((el) => (
       <div className={styles.row} key={el.id}>
-        <p className={styles.cell}>{el.id}</p>
         <p className={styles.cell}>{el.title}</p>
         <div className={styles.cell}>
           <ImgRow
@@ -24,7 +23,6 @@ const WorkgroupsTable = ({ workgroups, editFunc, delFunc }) => {
   return (
     <div className={styles.table}>
       <div className={styles.thead}>
-        <p className={styles.cell}>id</p>
         <p className={styles.cell}>Название</p>
         <p className={styles.cell}> </p>
       </div>

@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./workgroup.module.css";
 import PageHead from "../../../ui/control/pagehead/pagehead";
 import WorkGroupService from "../../../services/workgroups/workgroups";
-import EditWGForm from "../../../ui/forms/editworkgroup/editworkgroup";
+import EditWGForm from "../../../ui/forms/editworkgroup";
 import WGUsers from "../../../ui/control/wgusers/wgusers";
+import { AuthContext } from "../../../lib/providers/authprovider";
 
 const WorkGroup = () => {
   let { id } = useParams();
+  const { permissions, checkPermissions } = useContext(AuthContext);
+  const rights = checkPermissions(
+    ["workgroups_edit", "workgroups_remove"],
+    permissions
+  );
   const [workgroup, setWorkGroup] = useState(null);
 
   useEffect(() => {
@@ -18,6 +24,7 @@ const WorkGroup = () => {
 
     fetchData();
   }, [id]);
+
   return (
     <div className={styles.page__compose}>
       <PageHead backLink="/control/workgroups">
@@ -29,13 +36,20 @@ const WorkGroup = () => {
         </PageHead>
         <div className="page__body">
           {workgroup !== null ? (
-            <EditWGForm wgData={workgroup} setWorkGroup={setWorkGroup} />
+            <EditWGForm
+              wgData={workgroup}
+              setWorkGroup={setWorkGroup}
+              enable={rights.workgroups_edit}
+            />
           ) : (
             <>Загрузка...</>
           )}
         </div>
       </div>
-      <WGUsers id={workgroup !== null ? id : null} />
+      <WGUsers
+        id={workgroup !== null ? id : null}
+        enableEdit={rights.workgroups_edit}
+      />
     </div>
   );
 };

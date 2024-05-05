@@ -8,7 +8,6 @@ const EventsTable = ({ events, delFunc, editFunc }) => {
   const rowMapper = () => {
     return events.map((el) => (
       <div className={styles.row} key={el.id}>
-        <p className={styles.cell}>{el.id}</p>
         <p className={styles.cell}>{el.title}</p>
         <p className={styles.cell}>
           {dateRangeTranslator(el.start_date, el.end_date)}
@@ -35,7 +34,6 @@ const EventsTable = ({ events, delFunc, editFunc }) => {
   return (
     <div className={styles.table}>
       <div className={styles.thead}>
-        <p className={styles.cell}>id</p>
         <p className={styles.cell}>Название</p>
         <p className={styles.cell}>Дата проведения</p>
         <p className={styles.cell + " " + styles.first_queue}>Автор</p>

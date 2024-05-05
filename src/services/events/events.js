@@ -6,9 +6,14 @@ const EventsService = {
     return response.data;
   },
   async removeById(id) {
-    //const response = await Instance.delete(`/events/e-${id}`);
-    console.log(id);
-    return true;
+    if (id === undefined || id < 1) return { remove: false };
+    try {
+      const response = await Instance.delete(`/events/e-${id}`);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return { remove: false };
+    }
   },
   async create(title, description, startDate, endDate) {
     const event = await Instance.post("/events", {

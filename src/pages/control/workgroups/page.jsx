@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PageHead from "../../../ui/control/pagehead/pagehead";
 import WorkGroupService from "../../../services/workgroups/workgroups";
-import CreateWGModal from "../../../ui/modals/createworkgroup/createworkgroup";
+import CreateWGModal from "../../../ui/modals/createworkgroup";
 import { useNavigate } from "react-router-dom";
-import CheckModal from "../../../ui/modals/checkmodal/checkmodal";
+import CheckModal from "../../../ui/modals/checkmodal";
 import WorkgroupsTable from "../../../ui/tables/workgroupstable";
+import { AuthContext } from "../../../lib/providers/authprovider";
 
 const WorkGroups = () => {
+  const { permissions, checkPermissions } = useContext(AuthContext);
+  const rights = checkPermissions(
+    ["workgroups_create", "workgroups_remove"],
+    permissions
+  );
   let navigate = useNavigate();
   const [wgroups, setWGroups] = useState(null);
   const [createIsOpen, createSetOpen] = useState(false);
@@ -22,8 +28,8 @@ const WorkGroups = () => {
     setSelWG(wgroup);
     setDelOpen(true);
   }
-  function delWG() {
-    console.log(WorkGroupService.removeById(selWG.id));
+  async function delWG() {
+    await WorkGroupService.removeById(selWG.id);
     setWGroups(wgroups.filter((u) => u.id !== selWG.id));
     setDelOpen(false);
   }
@@ -31,7 +37,7 @@ const WorkGroups = () => {
     <div className="controlpage__background">
       <CreateWGModal
         isOpen={createIsOpen}
-        closeHandle={createSetOpen}
+        closeHandle={() => createSetOpen(false)}
         workgroups={wgroups}
         addWG={setWGroups}
       />
@@ -40,7 +46,11 @@ const WorkGroups = () => {
         closeHandle={setDelOpen}
         submitHandle={delWG}
       />
-      <PageHead createHandle={() => createSetOpen(true)}>
+      <PageHead
+        createHandle={
+          rights.workgroups_create ? () => createSetOpen(true) : undefined
+        }
+      >
         <h1>Список классов</h1>
       </PageHead>
       <div className="page__body">
@@ -51,7 +61,7 @@ const WorkGroups = () => {
               state: { prev: "/control/workgroups" },
             })
           }
-          delFunc={modalOpen}
+          delFunc={rights.workgroups_remove ? modalOpen : undefined}
         />
       </div>
     </div>

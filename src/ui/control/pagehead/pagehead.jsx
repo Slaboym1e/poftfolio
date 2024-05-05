@@ -15,7 +15,7 @@ const PageHead = ({ children, createHandle, backLink }) => {
         {children}
         {createHandle !== undefined && (
           <Button
-            buttonType="secondary"
+            buttonStyle="primary"
             buttonText="Добавить"
             clickHande={createHandle}
           />

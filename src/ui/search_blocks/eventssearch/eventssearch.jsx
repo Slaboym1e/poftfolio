@@ -16,11 +16,9 @@ const EventsSearch = ({
     if (searchRow.current !== searchRow.prev) {
       setEvents(null);
       const data = await EventsService.search(searchRow.current.trim());
-      console.log(data);
       if (data != false && data != null) {
         setSearchRow({ ...searchRow, prev: searchRow.current });
         setEvents(data);
-        console.log(events);
       }
     }
   };

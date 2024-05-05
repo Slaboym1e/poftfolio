@@ -6,7 +6,10 @@ import Button from "../button/button";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, permissions, checkPermissions } =
+    useContext(AuthContext);
+
+  const rights = checkPermissions(["dashboard_view"], permissions);
   return (
     <header className={styles.header}>
       <div className={`global__wrapper ` + styles.header__wrapper}>
@@ -17,9 +20,13 @@ const Header = () => {
         <ul className={styles.nav}>
           {user !== null ? (
             <>
-              <li className={styles.nav__item}>
-                <Link to="/control">Панель управления</Link>
-              </li>
+              {rights.dashboard_view ? (
+                <li className={styles.nav__item}>
+                  <Link to="/control">Панель управления</Link>
+                </li>
+              ) : (
+                <></>
+              )}
               <li className={styles.nav__item}>
                 <Link to={`portfolio/` + user.id}>Мое портфолио</Link>
               </li>
@@ -32,7 +39,7 @@ const Header = () => {
           clickHande={() => (user === null ? navigate("/login") : logout())}
           buttonText={user === null ? "Вход" : "Выход"}
           buttonType="button"
-          buttonStyle="primary"
+          buttonStyle="secondary"
         />
       </div>
     </header>

@@ -16,3 +16,7 @@
     background-color: var(--secondary_button-bg);
     color: var(--secondary_button-text);
 }
+
+.button:disabled {
+    cursor: not-allowed;
+}

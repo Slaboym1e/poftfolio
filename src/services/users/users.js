@@ -81,6 +81,18 @@ const UsersService = {
       return null;
     }
   },
+  async search(searchString) {
+    if (searchString === "" || searchString === undefined) return null;
+    try {
+      const response = await Instance.get("/users/search", {
+        params: { q: searchString },
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
 };
 
 export default UsersService;
